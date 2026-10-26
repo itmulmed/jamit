@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#071426">
+  <title>Jam WIB — Tanda Waktu</title>
+  <meta name="description" content="Jam digital WIB dengan sinkronisasi waktu BMKG, informasi cuaca, dan pengingat jam kerja.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Inter:wght@400;500;600;700;800&family=Orbitron:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-bg="midnight" data-accent="mint">
+  <div class="backdrop" aria-hidden="true"></div>
+  <main class="page">
+    <header class="header">
+      <a class="brand" href="#" aria-label="Jam WIB beranda">
+        <span class="brand-icon">◷</span>
+        <span class="brand-words"><b>JAM WIB</b><small>WAKTU INDONESIA BARAT</small></span>
+      </a>
+      <div class="sync-chip"><span id="syncDot" class="sync-dot"></span><span id="syncStatus">Menghubungkan ke BMKG…</span></div>
+    </header>
+
+    <nav class="toolbar" aria-label="Pengaturan tampilan">
+      <label class="setting setting-wide"><span>Background</span>
+        <select id="backgroundSelect">
+          <option value="midnight">Midnight</option><option value="ocean">Ocean Blue</option>
+          <option value="forest">Forest</option><option value="sunset">Sunset</option><option value="light">Light</option>
+        </select>
+      </label>
+      <label class="setting"><span>Font jam</span>
+        <select id="fontSelect">
+          <option value="Orbitron">Orbitron Digital</option><option value="DM Mono">DM Mono</option>
+          <option value="Space Grotesk">Space Grotesk</option><option value="Inter">Inter</option>
+        </select>
+      </label>
+      <label class="setting setting-color"><span>Warna aksen</span>
+        <select id="accentSelect">
+          <option value="mint">Mint</option><option value="blue">Biru</option><option value="gold">Emas</option>
+          <option value="pink">Pink</option><option value="violet">Ungu</option>
+        </select>
+      </label>
+      <label class="setting"><span>Kota cuaca</span>
+        <select id="citySelect">
+          <option value="jakarta">Jakarta</option><option value="depok">Depok</option><option value="bogor">Bogor</option>
+          <option value="bandung">Bandung</option><option value="surabaya">Surabaya</option><option value="yogyakarta">Yogyakarta</option>
+          <option value="semarang">Semarang</option><option value="medan">Medan</option><option value="makassar">Makassar</option>
+          <option value="denpasar">Denpasar</option>
+        </select>
+      </label>
+      <button id="resetBtn" class="reset-button" type="button" title="Kembalikan pengaturan awal">Reset</button>
+    </nav>
+
+    <section class="welcome">
+      <div class="sun-icon" id="greetingIcon" aria-hidden="true">☀</div>
+      <p class="overline">SELAMAT DATANG</p>
+      <h1 id="greeting">Selamat malam</h1>
+      <p id="greetingMessage" class="welcome-message">Semoga harimu berjalan lancar.</p>
+    </section>
+
+    <section class="main-grid">
+      <article class="clock-card glass">
+        <div class="card-top"><span class="live-label"><span class="live-dot"></span> JAM DIGITAL REALTIME</span><span class="zone-tag">WIB · UTC+7</span></div>
+        <div id="clock" class="clock" aria-label="Jam WIB saat ini">00:00:00</div>
+        <div class="clock-legend"><span>JAM</span><span>MENIT</span><span>DETIK</span></div>
+        <div class="date-pill"><span class="calendar-icon">▦</span><span id="dateLine">Memuat tanggal…</span></div>
+        <div class="clock-foot"><span>SUMBER WAKTU</span><b id="sourceLabel">Memeriksa server BMKG</b></div>
+      </article>
+
+      <article class="weather-card glass">
+        <div class="card-top"><span class="overline">CUACA SAAT INI</span><span id="weatherUpdated" class="updated">Memuat…</span></div>
+        <div class="weather-main">
+          <div id="weatherIcon" class="weather-icon">🌤️</div>
+          <div><div id="temperature" class="temperature">--°C</div><div id="weatherDescription" class="weather-description">Mengambil data cuaca</div><div id="weatherLocation" class="weather-location">⌖ Jakarta, Indonesia</div></div>
+        </div>
+        <div class="weather-note" id="weatherNote">Informasi cuaca membantu menyesuaikan aktivitas hari ini.</div>
+      </article>
+    </section>
+
+    <section class="work-card">
+      <div class="work-symbol">◷</div>
+      <div class="work-copy"><span id="workKicker" class="work-kicker">PENGINGAT JAM KERJA</span><h2 id="workMessage">Jam kerja berakhir pukul 17.00</h2><p id="workSub">Semoga pekerjaan hari ini berjalan lancar.</p></div>
+      <div class="work-clock">17:00<span>JAM PULANG</span></div>
+    </section>
+
+    <section class="bottom-grid">
+      <article class="mini-card glass"><span class="mini-icon sunrise">☼</span><div><b id="sunrise">--:--</b><span>Matahari terbit</span></div></article>
+      <article class="mini-card glass"><span class="mini-icon sunset">◉</span><div><b id="sunset">--:--</b><span>Matahari terbenam</span></div></article>
+      <article class="mini-card glass"><span class="mini-icon calendar-mini">▦</span><div><b id="dayOfYear">--</b><span>Hari ke- dalam tahun</span></div></article>
+      <article class="mini-card glass"><span class="mini-icon year-mini">✳</span><div><b id="daysLeft">--</b><span>Hari tersisa tahun ini</span></div></article>
+    </section>
+
+    <footer><span>JAM WIB · Jam digital personal</span><span>Waktu BMKG jika endpoint tersedia · Cuaca Open-Meteo</span><a href="https://jam.bmkg.go.id/Jam.BMKG" target="_blank" rel="noopener noreferrer">Buka situs resmi BMKG ↗</a></footer>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>
